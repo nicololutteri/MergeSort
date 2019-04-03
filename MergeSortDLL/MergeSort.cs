@@ -5,12 +5,28 @@ namespace MergeSortDLL
     public class MergeSort<T> where T : IComparable<T>
     {
         readonly int deep;
-        readonly T[] numbers;
+        readonly T[] data;
 
-        public MergeSort(int deep, T[] numbers)
+        public MergeSort(int deep, T[] data)
         {
             this.deep = deep;
-            this.numbers = numbers ?? throw new ArgumentNullException(nameof(numbers));
+            this.data = data ?? throw new ArgumentNullException(nameof(data));
+        }
+
+        public MergeSort(T[] data)
+        {
+            this.deep = FoundDeep();
+            this.data = data ?? throw new ArgumentNullException(nameof(data));
+        }
+
+        private MergeSort()
+        {
+
+        }
+
+        public int FoundDeep()
+        {
+            return (int) Math.Floor(Math.Log(Environment.ProcessorCount, 2) - 1);
         }
 
         private T[] MergeSortHelp(T[] array, bool useThread, int actualdeep)
@@ -98,7 +114,7 @@ namespace MergeSortDLL
 
         private T[] Block()
         {
-            return MergeSortHelp(numbers, !(deep == 0), 0);
+            return MergeSortHelp(data, !(deep == 0), 0);
         }
     }
 }
