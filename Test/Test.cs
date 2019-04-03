@@ -8,14 +8,15 @@ namespace Test
     [TestClass]
     public class Test
     {
+        private const int Max = 999999;
+        readonly long[] a = new long[] { 2, 4, 10, 1 };
+        readonly long[] f1 = new long[] { 1, 2, 4, 10 };
+
         [TestMethod]
         public void Test1()
         {
-            long[] a = new long[] { 2, 4, 10, 1 };
-            long[] f1 = new long[] { 1, 2, 4, 10 };
-
             MergeSort<long> c = new MergeSort<long>(0, a);
-            long[] f = c.Start();
+            c.Start();
 
             Assert.IsTrue(a[0] == f1[0]);
             Assert.IsTrue(a[1] == f1[1]);
@@ -26,11 +27,8 @@ namespace Test
         [TestMethod]
         public void Test2()
         {
-            long[] a = new long[] { 2, 4, 10, 1 };
-            long[] f1 = new long[] { 1, 2, 4, 10 };
-
             MergeSort<long> c = new MergeSort<long>(3, a);
-            long[] f = c.Start();
+            c.Start();
 
             Assert.IsTrue(a[0] == f1[0]);
             Assert.IsTrue(a[1] == f1[1]);
@@ -45,7 +43,7 @@ namespace Test
             long[] f1 = new long[] { 1, 2, 2, 3, 4, 5, 6, 10 };
 
             MergeSort<long> c = new MergeSort<long>(3, a);
-            long[] f = c.Start();
+            c.Start();
 
             Assert.IsTrue(a[0] == f1[0]);
             Assert.IsTrue(a[1] == f1[1]);
@@ -60,7 +58,7 @@ namespace Test
         [TestMethod]
         public void Test4()
         {
-            int[] array = new int[999999];
+            int[] array = new int[Max];
 
             Random r = new Random();
             Parallel.For(0, array.Length, (i) => array[i] = r.Next());

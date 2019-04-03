@@ -1,22 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MergeSort2
 {
     class MainConsole
     {
+        private const int Max = 1000;
+        private const string ConsoleTitle = "MergeSort2";
+
         static void Main(string[] args)
         {
-            for (int j = 0; j < 1000; j++)
+            if (args == null)
+            {
+                throw new ArgumentNullException(nameof(args));
+            }
+
+            Console.Title = ConsoleTitle;
+
+            for (int j = 0; j < Max; j++)
             {
                 MergeSort.MainConsole.MainFunc();
             }
 
+#if DEBUG
             Console.ReadKey();
+#endif
         }
     }
 }

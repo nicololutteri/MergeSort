@@ -1,25 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace MergeSortDLL
 {
     public class MergeSort<T> where T : IComparable<T>
     {
-        int deep;
-        T[] numbers;
+        readonly int deep;
+        readonly T[] numbers;
 
         public MergeSort(int deep, T[] numbers)
         {
             this.deep = deep;
-            this.numbers = numbers;
+            this.numbers = numbers ?? throw new ArgumentNullException(nameof(numbers));
         }
 
         private T[] MergeSortHelp(T[] array, bool useThread, int actualdeep)
         {
+            if (array == null)
+            {
+                throw new ArgumentNullException(nameof(array));
+            }
+
             if (array.Length == 1)
             {
                 return array;
@@ -37,8 +37,12 @@ namespace MergeSortDLL
                 {
                     bool nextUseThread = !(actualdeep >= deep);
 
-                    ThreadWithResult<T[]> t1 = new ThreadWithResult<T[]>(() => MergeSortHelp(t.Item1, nextUseThread, actualdeep));
-                    ThreadWithResult<T[]> t2 = new ThreadWithResult<T[]>(() => MergeSortHelp(t.Item2, nextUseThread, actualdeep));
+                    ThreadWithResult<T[]> t1 = new ThreadWithResult<T[]>(() => MergeSortHelp(t.Item1,
+                                                                                             nextUseThread,
+                                                                                             actualdeep));
+                    ThreadWithResult<T[]> t2 = new ThreadWithResult<T[]>(() => MergeSortHelp(t.Item2,
+                                                                                             nextUseThread,
+                                                                                             actualdeep));
 
                     t1.Start();
                     t2.Start();
@@ -76,7 +80,8 @@ namespace MergeSortDLL
                 }
                 else
                 {
-                    array[dimarray] = array1[dimfirst].CompareTo(array2[dimsecond]) == -1 ? array1[dimfirst++] : array[dimarray] = array2[dimsecond++];
+                    array[dimarray] = array1[dimfirst].CompareTo(array2[dimsecond]) == -1 ?
+                        array1[dimfirst++] : array[dimarray] = array2[dimsecond++];
                 }
 
                 dimarray += 1;

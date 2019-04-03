@@ -1,30 +1,39 @@
 ﻿using MergeSortDLL;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MergeSort
 {
     public class MainConsole
     {
+        private const int Dim = 10000000;
+        private const string ConsoleTitle = "MergeSort1";
+
         static void Main(string[] args)
         {
+            if (args == null)
+            {
+                throw new ArgumentNullException(nameof(args));
+            }
+
+            Console.Title = ConsoleTitle;
+
             MainFunc();
+
+#if DEBUG
             Console.ReadKey();
+#endif
         }
 
         static public void MainFunc()
         {
-            long[] array = Utilities.GenerateNumbers(10000000);
+            long[] array = Utilities.GenerateNumbers(Dim);
             long min = Int64.MaxValue;
             long number = 0;
 
             Stopwatch s = new Stopwatch();
 
-            for (int i = 0; i < 8; i++)
+            for (int i = 1; i < 8; i++)
             {
                 try
                 {
@@ -32,7 +41,7 @@ namespace MergeSort
                     s.Start();
 
                     MergeSort<long> c = new MergeSort<long>(i, array);
-                    long[] f = c.Start();
+                    c.Start();
 
                     s.Stop();
 

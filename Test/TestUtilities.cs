@@ -50,12 +50,13 @@ namespace Test
             Assert.IsTrue(f2[0] == r2[0]);
         }
 
+        public const short numberrandom = 10;
+
         [TestMethod]
         public void TestGenerateNumbers()
         {
-            long[] b = Utilities.GenerateNumbers(10);
-
-            Assert.IsTrue(b.Length == 10);
+            long[] b = Utilities.GenerateNumbers(numberrandom);
+            Assert.IsTrue(b.Length == numberrandom);
         }
     }
 }

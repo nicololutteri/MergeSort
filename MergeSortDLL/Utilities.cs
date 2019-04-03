@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MergeSortDLL
@@ -10,7 +7,7 @@ namespace MergeSortDLL
     {
         public static Tuple<T[], T[]> Split<T>(T[] array) where T : IComparable<T>
         {
-            T[] array1 = new T[array.Length / 2 + ((array.Length % 2 == 0) ? 0 : 1)];
+            T[] array1 = new T[(array.Length / 2) + ((array.Length % 2 == 0) ? 0 : 1)];
             T[] array2 = new T[array.Length / 2];
 
             Array.Copy(array, array1, array1.Length);
@@ -36,7 +33,6 @@ namespace MergeSortDLL
                 switch (tmp[i].CompareTo(tmp[i + 1]))
                 {
                     case -1:
-                        break;
                     case 0:
                         break;
                     case 1:
